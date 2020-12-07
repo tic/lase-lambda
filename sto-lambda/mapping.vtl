@@ -1,0 +1,47 @@
+## Written by G. Michael Fitzgerald (September 2020) for LASE
+##
+## Transforms the input post request into one which is guaranteed to contain
+##   all (and only) acceptable input fields.
+## The set of inputs we need to carry over or initialize
+#set($inputs = ["Group3s", "Fluxes", "StartTemps", "TempSteps", "Exp", "idletemps", "temperatures"])
+## The default value to initialize fields to, if they're invalid or missing
+#set($defaultVal = [])
+
+## Json body
+{
+"body-json" : {
+## Loop through all inputs
+#foreach($i in $inputs)
+## Pull out the value from the input json body
+#set($val = $input.json($i))
+## Add either the default value or the given value (if acceptable)
+#if($util.parseJson($val).size() == '')
+    "$i": $defaultVal
+#else
+    "$i": $val
+#end
+#if($foreach.hasNext),#end
+#end
+},
+## Some carry over values provided by the default AWS template
+"context" : {
+    "account-id" : "$context.identity.accountId",
+    "api-id" : "$context.apiId",
+    "api-key" : "$context.identity.apiKey",
+    "authorizer-principal-id" : "$context.authorizer.principalId",
+    "caller" : "$context.identity.caller",
+    "cognito-authentication-provider" : "$context.identity.cognitoAuthenticationProvider",
+    "cognito-authentication-type" : "$context.identity.cognitoAuthenticationType",
+    "cognito-identity-id" : "$context.identity.cognitoIdentityId",
+    "cognito-identity-pool-id" : "$context.identity.cognitoIdentityPoolId",
+    "http-method" : "$context.httpMethod",
+    "stage" : "$context.stage",
+    "source-ip" : "$context.identity.sourceIp",
+    "user" : "$context.identity.user",
+    "user-agent" : "$context.identity.userAgent",
+    "user-arn" : "$context.identity.userArn",
+    "request-id" : "$context.requestId",
+    "resource-id" : "$context.resourceId",
+    "resource-path" : "$context.resourcePath"
+    }
+}
