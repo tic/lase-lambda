@@ -1,5 +1,8 @@
 from pymysql import escape_string as esc
 
+if __name__ == '__main__':
+    print 'This file should be imported, not directly executed.'
+
 def FilteredQuery(table, select=['*'], filters={}):
 	# Create first part of the sql query
 	q = FilterlessQuery(table, select=select)

@@ -1,5 +1,8 @@
 # All conversions from sql arrays to objects (python dicts)
 
+if __name__ == '__main__':
+    print 'This file should be imported, not directly executed.'
+
 def fromMachineSource(sql_array):
     return {
         'id': sql_array[0],
