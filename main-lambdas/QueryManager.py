@@ -63,7 +63,7 @@ def InsertQuery(table, fields={}):
 	for key in fields:
 		columns.append(key)
 		val = fields[key]
-		if type(val) == type(''):
+		if isinstance(val, basestring):
 			val = "'{}'".format(esc(val))
 		values.append(str(val))
 	return 'insert into {} ({}) values ({})'.format(esc(table), ', '.join(columns), ', '.join(values))
