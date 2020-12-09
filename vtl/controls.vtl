@@ -1,0 +1,353 @@
+## This template is not for actual use. It contains the control blocks
+## for each of the major endpoints. To create a usable template, you
+## should copy the relevant control block from this file (or make your
+## own) and replace the sample control block found in generic.vtl.
+##
+##
+## /machine/growths GET
+##
+"control": {
+    "method": "GET",
+    "table": "growths",
+    "machine": "user_given",
+    "returnKey": "results",
+    "source": "fromMachineGrowth",
+    "queryFilters": true,
+    "singleItem": false,
+    "pathParams": []
+}
+##
+##
+## /machine/growths PUT
+##
+"control": {
+    "method": "PUT",
+    "machine": "user_given",
+    "fields": [
+        {
+            "name": "growth",
+            "table": "growths",
+            "type": "single",
+            "independent": true,
+            "master": true
+        },
+        {
+            "name": "materials",
+            "table": "materials",
+            "type": "list",
+            "independent": true,
+            "master": false
+        }
+    ]
+}
+##
+##
+## /machine/growths DELETE
+##
+"control": {
+    "method": "DELETE",
+    "table": "growths",
+    "machine": "user_given",
+    "key": "SampleID"
+}
+##
+##
+## /machine/growths/materials GET
+##
+"control": {
+    "method": "GET",
+    "table": "materials",
+    "machine": "user_given",
+    "returnKey": "materials",
+    "source": "fromMachineMaterial",
+    "singleItem": false,
+    "queryFilters": false,
+    "pathParams": [
+        "SampleID"
+    ]
+}
+##
+##
+## /machine/growths/recipe GET
+##
+"control": {
+    "method": "GET",
+    "table": "recipes",
+    "machine": "user_given",
+    "returnKey": "recipes",
+    "source": "fromMachineRecipe",
+    "queryFilters": false,
+    "singleItem": false,
+    "pathParams": [
+        "SampleID"
+    ]
+}
+##
+##
+## /machine/growths/sources GET
+##
+"control": {
+    "method": "GET",
+    "table": "sources",
+    "machine": "user_given",
+    "returnKey": "sources",
+    "source": "fromMachineSource",
+    "queryFilters": false,
+    "singleItem": false,
+    "pathParams": []
+}
+##
+##
+## /maintenance GET
+##
+"control": {
+    "method": "GET",
+    "table": "Records",
+    "machine": "Maintenance",
+    "returnKey": "records",
+    "source": "fromMaintenanceRecord",
+    "queryFilters": true,
+    "singleItem": false,
+    "pathParams": []
+}
+##
+##
+## /maintenance PUT
+##
+"control": {
+    "method": "PUT",
+    "machine": "Maintenance",
+    "fields": [
+        {
+            "name": "record",
+            "table": "Records",
+            "type": "single",
+            "independent": true,
+            "master": true
+        },
+        {
+            "name": "sources",
+            "table": "Sources",
+            "type": "list",
+            "independent": false,
+            "master": false
+        }
+    ]
+}
+##
+##
+## /maintenance/RecordID DELETE
+##
+"control": {
+    "method": "DELETE",
+    "table": "Records",
+    "machine": "Maintenance",
+    "key": "RecordID"
+}
+##
+##
+## /maintenance/RecordID GET
+##
+"control": {
+    "method": "GET",
+    "table": "Sources",
+    "machine": "Maintenance",
+    "returnKey": "sources",
+    "source": "fromMaintenanceSource",
+    "queryFilters": false,
+    "singleItem": false,
+    "pathParams": [
+        "RecordID"
+    ]
+}
+##
+##
+## /publications GET
+##
+"control": {
+    "method": "GET",
+    "table": "entries",
+    "machine": "Publications",
+    "returnKey": "publications",
+    "source": "fromPublication",
+    "queryFilters": true,
+    "singleItem": false,
+    "pathParams": []
+}
+##
+##
+## /publications PUT
+##
+"control": {
+    "method": "PUT",
+    "machine": "Publications",
+    "fields": [
+        {
+            "name": "publication",
+            "table": "entries",
+            "type": "single",
+            "independent": true,
+            "master": true
+        }
+    ]
+}
+##
+##
+## /publications/types GET
+##
+"control": {
+    "method": "GET",
+    "table": "entry_types",
+    "machine": "Publications",
+    "returnKey": "types",
+    "source": "fromPublicationType",
+    "queryFilters": false,
+    "singleItem": false,
+    "pathParams": []
+}
+##
+##
+## /publications DELETE
+##
+"control": {
+    "method": "DELETE",
+    "table": "entries",
+    "machine": "Publications",
+    "key": "id"
+}
+##
+##
+## /settings/growers GET
+##
+"control": {
+    "method": "GET",
+    "table": "members",
+    "machine": "Settings",
+    "returnKey": "growers",
+    "source": "returnFirst",
+    "select": [
+        "name"
+    ],
+    "singleItem": false,
+    "queryFilters": true,
+    "pathParams": []
+}
+##
+##
+## /settings/machines GET
+##
+"control": {
+    "method": "GET",
+    "table": "systems",
+    "machine": "Settings",
+    "returnKey": "machines",
+    "source": "returnFirst",
+    "select": [
+        "system"
+    ],
+    "singleItem": false,
+    "queryFilters": false,
+    "pathParams": []
+}
+##
+##
+## /settings/members GET
+##
+"control": {
+    "method": "GET",
+    "table": "members",
+    "machine": "Settings",
+    "returnKey": "members",
+    "source": "fromMember",
+    "singleItem": false,
+    "queryFilters": false,
+    "pathParams": []
+}
+##
+##
+## /settings/substrates GET
+##
+"control": {
+    "method": "GET",
+    "table": "substrates",
+    "machine": "Settings",
+    "returnKey": "substrates",
+    "source": "fromSubstrate",
+    "singleItem": false,
+    "queryFilters": false,
+    "pathParams": []
+}
+##
+##
+## /wafers/sizes GET
+##
+"control": {
+    "method": "GET",
+    "table": "substrate_sizes",
+    "machine": "Settings",
+    "returnKey": "sizes",
+    "source": "returnFirst",
+    "select": [
+        "substratesize"
+    ],
+    "singleItem": false,
+    "queryFilters": false,
+    "pathParams": []
+}
+##
+##
+## /wafers/substrate GET
+##
+"control": {
+    "method": "GET",
+    "table": "$tbl",
+    "machine": "Wafers",
+    "returnKey": "entries",
+    "source": "fromWaferLog",
+    "singleItem": false,
+    "queryFilters": true,
+    "pathParams": []
+},
+##
+##
+## /wafers/substrate PUT
+##
+"control": {
+    "method": "PUT",
+    "machine": "Wafers",
+    "fields": [
+        {
+            "name": "entry",
+            "table": "$tbl",
+            "type": "single",
+            "independent": true,
+            "master": true
+        }
+    ]
+}
+##
+##
+## /wafers/substrate/id DELETE
+##
+"control": {
+    "method": "DELETE",
+    "table": "$tbl",
+    "machine": "Wafers",
+    "key": "id"
+}
+##
+##
+## /wafers/substrate/recent GET
+##
+"control": {
+    "method": "GET",
+    "table": "$tbl",
+    "machine": "Wafers",
+    "returnKey": "entries",
+    "source": "fromWaferLog",
+    "singleItem": false,
+    "queryFilters": false,
+    "pathParams": [
+        "days"
+    ]
+}
