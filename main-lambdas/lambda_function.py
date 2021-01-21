@@ -75,7 +75,10 @@ def lambda_handler(event, context):
 				filters[key] = event['params']['path'][key]
 
 		    # Start by creating a filtered query, then make it paginated
-			q = PaginateQuery(FilteredQuery(table, select=select, filters=filters), page_number=page, record=table == 'Records', reverse=reverse)
+			if table == 'Records': sortby = 'RecordID'
+			elif is_growth and not (table == 'sources' or table == 'materials'): sortby = 'SUBSTR(SampleID, 2)'
+			else: sortby = 'id'
+			q = PaginateQuery(FilteredQuery(table, select=select, filters=filters), page_number=page, sortby=sortby, reverse=reverse)
 			data = []
 
 		    # Consult with sql backend

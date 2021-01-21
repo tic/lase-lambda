@@ -45,10 +45,9 @@ def FilterlessQuery(table, select=['*']):
 	return ret.format(selections, esc(table))
 #
 
-def PaginateQuery(query, page_size=100, page_number=0, record=False, reverse=False):
+def PaginateQuery(query, page_size=100, page_number=0, sortby='id', reverse=False):
 	skip = page_size * page_number
-	field = 'RecordID' if record else 'id'
-	return '{} order by {} {} limit {}, {}'.format(query, field, 'desc' if reverse else 'asc', skip, page_size)
+	return '{} order by {} {} limit {}, {}'.format(query, sortby, 'desc' if reverse else 'asc', skip, page_size)
 #
 
 def DeleteQuery(table, id=-1, param='id'):
